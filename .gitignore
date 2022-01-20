@@ -25,3 +25,8 @@ hs_err_pid*
 # IntelliJ IDEA
 .idea
 out/
+
+# Eclipse
+.classpath
+.project
+.settings
