@@ -29,31 +29,58 @@ public class MenuPanel extends JPanel {
         barraMenuSuperior.add(fontStyle);
         barraMenuSuperior.add(fontSize);
         /* -- -- -- -- -- -- -- -- -- -- -- -- TODO refactorizar-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --*/
-        configurarMenu("Arial","Fuente","",0,0);
-        configurarMenu("Consolas","Fuente","",0,0);
-        configurarMenu("Verdana","Fuente","",0,0);
+        configurarMenu("Arial","Fuente","Arial",1,8);
+        configurarMenu("Consolas","Fuente","Consolas",1,10);
+        configurarMenu("Verdana","Fuente","Verdana",0,11);
 
-        configurarMenu("Negrita","Estilo","",0,0);
-        configurarMenu("Cursiva","Estilo","",0,0);
+        configurarMenu("Negrita","Estilo","",Font.BOLD,11);
+        configurarMenu("Cursiva","Estilo","",Font.ITALIC,11);
+        configurarMenu("Normal","Estilo","",Font.PLAIN,11);
 
-        configurarMenu("12","Tamaño","",0,0);
-        configurarMenu("16","Tamaño","",0,0);
-        configurarMenu("20","Tamaño","",0,0);
-        configurarMenu("24","Tamaño","",0,0);
+        configurarMenu("12","Tamaño","",0,12);
+        configurarMenu("16","Tamaño","",0,16);
+        configurarMenu("20","Tamaño","",0,20);
+        configurarMenu("24","Tamaño","",0,24);
 
     }
 
-    /** Un metodo que ponga los elementos a la escucha y que tamabien los construya */
-    public void configurarMenu(String rotuloMenuSuperior, String jmenuSup, String tipoLetra, int estiloLetra, int sizeLetra){
+    /** Un metodo que ponga los elementos a la escucha y que tambien los construya */
+    public void configurarMenu(String rotuloMenuSuperior, String jbotonMenuSup, String tipoLetra, int estiloLetra, int sizeLetra){
         // Construye los items para cada submenu
         JMenuItem menuElement = new JMenuItem(rotuloMenuSuperior);
-        if (jmenuSup=="Fuente"){
+        if (jbotonMenuSup=="Fuente"){
             fontType.add(menuElement);
-        }else if(jmenuSup=="Estilo"){
+        }else if(jbotonMenuSup=="Estilo"){
             fontStyle.add(menuElement);
-        }else if(jmenuSup=="Tamaño"){
+        }else if(jbotonMenuSup=="Tamaño"){
             fontSize.add(menuElement);
         }
+        // Ponemos a la escucha al menu desplegable
+        menuElement.addActionListener(new GestionaEventos(rotuloMenuSuperior, jbotonMenuSup, estiloLetra, sizeLetra));
+
+    }
+
+    // Clase interna
+    private class GestionaEventos implements ActionListener{
+
+        private String tipoLetra, menuSelecionado;
+        private int style, size;
+
+        // Constructor que detectara que item del menu se selecciono
+        GestionaEventos(String elementoSeleccionado, String botonFuente, int estiloLetra, int tamLetra) {
+            tipoLetra = elementoSeleccionado;
+            menuSelecionado = botonFuente;
+            style = estiloLetra;
+            size = tamLetra;
+
+        }
+
+        /** Cambia el tipo de letra, estilo y tamaño */
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            areaEscritura.setFont(new Font(tipoLetra, style, size));
+        }
+
     }
 
 }
