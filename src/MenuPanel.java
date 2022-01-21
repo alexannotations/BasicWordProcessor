@@ -32,18 +32,18 @@ public class MenuPanel extends JPanel {
         barraMenuSuperior.add(fontStyle);
         barraMenuSuperior.add(fontSize);
         /* -- -- -- -- -- -- -- -- -- -- -- -- TODO refactorizar-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --*/
-        configurarMenu("Arial","Fuente","Arial",1,8);
-        configurarMenu("Consolas","Fuente","Consolas",1,10);
-        configurarMenu("Verdana","Fuente","Verdana",0,11);
+        configurarMenu("Arial","Fuente","Arial",9,11);
+        configurarMenu("Consolas","Fuente","Consolas",9,11);
+        configurarMenu("Verdana","Fuente","Verdana",9,11);
 
-        configurarMenu("Negrita","Estilo","",Font.BOLD,11);
-        configurarMenu("Cursiva","Estilo","",Font.ITALIC,11);
-        configurarMenu("Normal","Estilo","",Font.PLAIN,11);
+        configurarMenu("Negrita","Estilo","",Font.BOLD,1);
+        configurarMenu("Cursiva","Estilo","",Font.ITALIC,1);
+        configurarMenu("Normal","Estilo","",Font.PLAIN,1);
 
-        configurarMenu("12","Tamaño","",0,12);
-        configurarMenu("16","Tamaño","",0,16);
-        configurarMenu("20","Tamaño","",0,20);
-        configurarMenu("24","Tamaño","",0,24);
+        configurarMenu("12","Tamaño","",9,12);
+        configurarMenu("16","Tamaño","",9,16);
+        configurarMenu("20","Tamaño","",9,20);
+        configurarMenu("24","Tamaño","",9,24);
 
     }
 
@@ -89,6 +89,9 @@ public class MenuPanel extends JPanel {
                 size = letras.getSize();
             } else
             if (menuSelecionado =="Negrita" || menuSelecionado =="Cursiva" || menuSelecionado =="Normal"){
+                if (letras.getStyle()==0 || letras.getStyle()==1 || letras.getStyle()==2 || letras.getStyle()==3 ){
+                    // TODO: Checar si se conserva las negritas y cursivas
+                }
                 tipoLetra = letras.getFontName();
                 size = letras.getSize();
             }else
