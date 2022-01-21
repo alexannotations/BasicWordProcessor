@@ -25,6 +25,7 @@ hs_err_pid*
 # IntelliJ IDEA
 .idea
 out/
+BasicWordProcessor.iml
 
 # Eclipse
 .classpath
