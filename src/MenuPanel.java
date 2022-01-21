@@ -13,6 +13,7 @@ public class MenuPanel extends JPanel {
 
     public MenuPanel() {
         JPanel panelMenuSuperior = new JPanel();
+        JPanel areaInfo = new JPanel();
         JMenuBar barraMenuSuperior = new JMenuBar();
         areaEscritura = new JTextPane();
 
@@ -23,8 +24,10 @@ public class MenuPanel extends JPanel {
         setLayout(new BorderLayout());
         add(panelMenuSuperior, BorderLayout.NORTH);
         add(areaEscritura, BorderLayout.CENTER);
+        add(areaInfo, BorderLayout.SOUTH);
 
         panelMenuSuperior.add(barraMenuSuperior);
+        areaInfo.add(new JLabel("Tipo: " + "tipoLetra" +". Estilo: " + "style" +". Tamaño: " + "size"));
         barraMenuSuperior.add(fontType);
         barraMenuSuperior.add(fontStyle);
         barraMenuSuperior.add(fontSize);
@@ -78,7 +81,24 @@ public class MenuPanel extends JPanel {
         /** Cambia el tipo de letra, estilo y tamaño */
         @Override
         public void actionPerformed(ActionEvent e) {
+
+            letras = areaEscritura.getFont();       // Captura el tipo de letra del area de texto
+
+            if (menuSelecionado =="Arial" || menuSelecionado =="Consolas" || menuSelecionado =="Verdana"){
+                style = letras.getStyle();
+                size = letras.getSize();
+            } else
+            if (menuSelecionado =="Negrita" || menuSelecionado =="Cursiva" || menuSelecionado =="Normal"){
+                tipoLetra = letras.getFontName();
+                size = letras.getSize();
+            }else
+            if (menuSelecionado =="12" || menuSelecionado =="16" || menuSelecionado =="20" || menuSelecionado =="24"){
+                style = letras.getStyle();
+                tipoLetra = letras.getFontName();
+            }
+
             areaEscritura.setFont(new Font(tipoLetra, style, size));
+            System.out.println("Tipo: " + tipoLetra +" Estilo: " + style +" Tamaño: " + size);  // TODO: Agregar a la areaInfo
         }
 
     }
