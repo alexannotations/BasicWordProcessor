@@ -2,8 +2,12 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MenuPanel extends JPanel {
+
+    JTextPane areaEscritura;
 
     public MenuPanel() {
         setLayout(new BorderLayout());
@@ -18,11 +22,11 @@ public class MenuPanel extends JPanel {
         barraMenuSuperior.add(fontSize);
 
         JMenuItem arial = new JMenuItem("Arial");
-        JMenuItem courier = new JMenuItem("Courier");
+        JMenuItem consolas = new JMenuItem("Consolas");
         JMenuItem verdana = new JMenuItem("Verdana");
 
         fontType.add(arial);
-        fontType.add(courier);
+        fontType.add(consolas);
         fontType.add(verdana);
 
         fontStyle.add(new JMenuItem("Negrita"));
@@ -37,5 +41,33 @@ public class MenuPanel extends JPanel {
         laminaMenu.add(barraMenuSuperior);
         add(laminaMenu, BorderLayout.NORTH);
 
+        areaEscritura = new JTextPane();
+        add(areaEscritura, BorderLayout.CENTER);
+
+
+        arial.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                areaEscritura.setFont(new Font("Arial", Font.PLAIN, 12));
+            }
+        });
+        // Dos formas de instanciar el listener, en la primera se invoca el constructor
+        // junto con los metodos entre corchetes
+
+        GestionaMenus fontTypeEvent = new GestionaMenus();
+        consolas.addActionListener(fontTypeEvent);
+
+        verdana.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                areaEscritura.setFont(new Font("Verdana", Font.PLAIN, 12));
+            }
+        });
+        
+    }
+
+    private class GestionaMenus implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            areaEscritura.setFont(new Font("Consolas", Font.PLAIN, 12));
+        }
     }
 }
