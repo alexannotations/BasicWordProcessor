@@ -11,8 +11,10 @@ public class MenuPanel extends JPanel {
     JMenu fontTypeMenu, fontStyleMenu, fontSizeMenu;
     Font letras;
     String[] fontsNames = {"Algerian","Consolas","Lucida Handwriting"};
+    static int contadorMenuPanel =0, contadorConfigurarMenu,contadorGestionaEventos,contadoractionPerformed;
 
     public MenuPanel() {
+        System.out.println("\t\t\tIMenuPanel "+ ++contadorMenuPanel);
         JPanel panelMenuSuperior = new JPanel();
         JPanel areaInfo = new JPanel();
         JMenuBar barraMenuSuperior = new JMenuBar();
@@ -45,10 +47,12 @@ public class MenuPanel extends JPanel {
         configurarMenu("16","Tamaño","",9,16);
         configurarMenu("20","Tamaño","",9,20);
         configurarMenu("24","Tamaño","",9,24);
+        System.out.println("\t\t\tFMenuPanel "+ contadorMenuPanel);
     }
 
     /** Un metodo que ponga los elementos a la escucha y que tambien los construya */
     public void configurarMenu(String itemMenuSuperior, String jMenuRotuloSup, String fontName, int fontStyle, int fontSize){
+        System.out.println("\t\t\t\tIconfigurarMenu "+ ++contadorConfigurarMenu);
         // Construye los items para cada submenu
         JMenuItem menuElement = new JMenuItem(itemMenuSuperior);
         if (jMenuRotuloSup=="Fuente"){
@@ -61,6 +65,7 @@ public class MenuPanel extends JPanel {
         // Ponemos a la escucha al elemento item del menu desplegable
         menuElement.addActionListener(new GestionaEventos(itemMenuSuperior, fontName, fontStyle, fontSize));
 
+        System.out.println("\t\t\t\tFconfigurarMenu "+ contadorConfigurarMenu);
     }   // END configurarMenu()
 
 
@@ -72,17 +77,19 @@ public class MenuPanel extends JPanel {
 
         // Constructor que detectara que item del menu se selecciono
         GestionaEventos(String itemSelected, String fontName, int fontStyle, int fontSize) {
+            System.out.println("\t\t\t\t\t\tIGestionaEventos "+ ++contadorGestionaEventos);
             itemSubmenuSelected = itemSelected;
             this.fontName = fontName;
             this.fontStyle = fontStyle;
             this.fontSize = fontSize;
-
+            System.out.println("\t\t\t\t\t\tFGestionaEventos "+ contadorGestionaEventos);
         }   // END constructor
 
         /** Cambia el tipo de letra, estilo y tamaño */
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Nombre: " + fontName +"\t\t Estilo: " + fontStyle +"\t\t Tamaño: " + fontSize);                // BORRAR ESTA LINEA
+            System.out.println("\t\t\t\t\t\t\t\tIactionPerformed "+ ++contadoractionPerformed);
+    System.out.println("Nombre: " + fontName +"\t\t Estilo: " + fontStyle +"\t\t Tamaño: " + fontSize);                // BORRAR ESTA LINEA
             letras = areaEscrituraPanel.getFont();       // Captura el tipo de letra del area de texto, variable global de la clase externa
 
             if (itemSubmenuSelected ==fontsNames[0] || itemSubmenuSelected ==fontsNames[1] || itemSubmenuSelected ==fontsNames[2]){  /* FontName */
@@ -103,8 +110,9 @@ public class MenuPanel extends JPanel {
             }
 
             areaEscrituraPanel.setFont(new Font(fontName, fontStyle, fontSize));
-            System.out.println("Nombre: " + fontName +"\t\t Estilo: " + fontStyle +"\t\t Tamaño: " + fontSize);  // TODO: Agregar a la areaInfo
+    System.out.println("Nombre: " + fontName +"\t\t Estilo: " + fontStyle +"\t\t Tamaño: " + fontSize);  // TODO: Agregar a la areaInfo
 
+            System.out.println("\t\t\t\t\t\t\t\tFactionPerformed "+ contadoractionPerformed);
         }   // END actionPerformed()
 
     }   // END inner class that implements ActionListener
