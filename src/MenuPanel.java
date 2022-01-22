@@ -1,4 +1,4 @@
-//package src;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,34 +7,35 @@ import java.awt.event.ActionListener;
 
 public class MenuPanel extends JPanel {
 
-    JTextPane areaEscritura;
-    JMenu fontType, fontStyle, fontSize;
+    JTextPane areaEscrituraPanel;
+    JMenu fontTypeMenu, fontStyleMenu, fontSizeMenu;
     Font letras;
+    String[] fontsNames = {"Algerian","Consolas","Lucida Handwriting"};
 
     public MenuPanel() {
         JPanel panelMenuSuperior = new JPanel();
         JPanel areaInfo = new JPanel();
         JMenuBar barraMenuSuperior = new JMenuBar();
-        areaEscritura = new JTextPane();
+        areaEscrituraPanel = new JTextPane();
 
-        fontType = new JMenu("Fuente");
-        fontStyle = new JMenu("Estilo");
-        fontSize = new JMenu("Tamaño");
+        fontTypeMenu = new JMenu("Fuente");
+        fontStyleMenu = new JMenu("Estilo");
+        fontSizeMenu = new JMenu("Tamaño");
 
         setLayout(new BorderLayout());
         add(panelMenuSuperior, BorderLayout.NORTH);
-        add(areaEscritura, BorderLayout.CENTER);
+        add(areaEscrituraPanel, BorderLayout.CENTER);
         add(areaInfo, BorderLayout.SOUTH);
 
         panelMenuSuperior.add(barraMenuSuperior);
         areaInfo.add(new JLabel("Tipo: " + "tipoLetra" +". Estilo: " + "style" +". Tamaño: " + "size"));
-        barraMenuSuperior.add(fontType);
-        barraMenuSuperior.add(fontStyle);
-        barraMenuSuperior.add(fontSize);
+        barraMenuSuperior.add(fontTypeMenu);
+        barraMenuSuperior.add(fontStyleMenu);
+        barraMenuSuperior.add(fontSizeMenu);
         /* -- -- -- -- -- -- -- -- -- -- -- -- TODO refactorizar-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --*/
-        configurarMenu("Arial","Fuente","Arial",9,11);
-        configurarMenu("Consolas","Fuente","Consolas",9,11);
-        configurarMenu("Verdana","Fuente","Verdana",9,11);
+        configurarMenu(fontsNames[0],"Fuente",fontsNames[0],9,11);
+        configurarMenu(fontsNames[1],"Fuente",fontsNames[1],9,11);
+        configurarMenu(fontsNames[2],"Fuente",fontsNames[2],9,11);
 
         configurarMenu("Negrita","Estilo","",Font.BOLD,1);
         configurarMenu("Cursiva","Estilo","",Font.ITALIC,1);
@@ -44,22 +45,21 @@ public class MenuPanel extends JPanel {
         configurarMenu("16","Tamaño","",9,16);
         configurarMenu("20","Tamaño","",9,20);
         configurarMenu("24","Tamaño","",9,24);
-
     }
 
     /** Un metodo que ponga los elementos a la escucha y que tambien los construya */
-    public void configurarMenu(String itemMenuSuperior, String jMenuRotuloSup, String tipoLetra, int estiloLetra, int sizeLetra){
+    public void configurarMenu(String itemMenuSuperior, String jMenuRotuloSup, String fontName, int fontStyle, int fontSize){
         // Construye los items para cada submenu
         JMenuItem menuElement = new JMenuItem(itemMenuSuperior);
         if (jMenuRotuloSup=="Fuente"){
-            fontType.add(menuElement);
+            fontTypeMenu.add(menuElement);
         }else if(jMenuRotuloSup=="Estilo"){
-            fontStyle.add(menuElement);
+            fontStyleMenu.add(menuElement);
         }else if(jMenuRotuloSup=="Tamaño"){
-            fontSize.add(menuElement);
+            fontSizeMenu.add(menuElement);
         }
         // Ponemos a la escucha al elemento item del menu desplegable
-        menuElement.addActionListener(new GestionaEventos(itemMenuSuperior, jMenuRotuloSup, tipoLetra, estiloLetra, sizeLetra));
+        menuElement.addActionListener(new GestionaEventos(itemMenuSuperior, fontName, fontStyle, fontSize));
 
     }   // END configurarMenu()
 
@@ -67,43 +67,43 @@ public class MenuPanel extends JPanel {
     // Clase interna
     private class GestionaEventos implements ActionListener{
 
-        private String itemSubmenuSelected, menuSelecionado, tipoLetra;
-        private int style, size;
+        private String itemSubmenuSelected, fontName;
+        private int fontStyle, fontSize;
 
         // Constructor que detectara que item del menu se selecciono
-        GestionaEventos(String itemSelected, String menuFuente, String tipoLetra, int estiloLetra, int tamLetra) {
+        GestionaEventos(String itemSelected, String fontName, int fontStyle, int fontSize) {
             itemSubmenuSelected = itemSelected;
-            menuSelecionado = menuFuente;
-            this.tipoLetra = tipoLetra;
-            style = estiloLetra;
-            size = tamLetra;
+            this.fontName = fontName;
+            this.fontStyle = fontStyle;
+            this.fontSize = fontSize;
 
         }   // END constructor
 
         /** Cambia el tipo de letra, estilo y tamaño */
         @Override
         public void actionPerformed(ActionEvent e) {
+            System.out.println("Nombre: " + fontName +"\t\t Estilo: " + fontStyle +"\t\t Tamaño: " + fontSize);                // BORRAR ESTA LINEA
+            letras = areaEscrituraPanel.getFont();       // Captura el tipo de letra del area de texto, variable global de la clase externa
 
-            letras = areaEscritura.getFont();       // Captura el tipo de letra del area de texto, variable global de la clase externa
-
-            if (itemSubmenuSelected =="Arial" || itemSubmenuSelected =="Consolas" || itemSubmenuSelected =="Verdana"){  /* FontName */
-                style = letras.getStyle();
-                size = letras.getSize();
+            if (itemSubmenuSelected ==fontsNames[0] || itemSubmenuSelected ==fontsNames[1] || itemSubmenuSelected ==fontsNames[2]){  /* FontName */
+                fontStyle = letras.getStyle();
+                fontSize = letras.getSize();
             } else
             if (itemSubmenuSelected =="Negrita" || itemSubmenuSelected =="Cursiva" || itemSubmenuSelected =="Normal"){  /* Style: plain, bold, italic, bold+italic */
                 if (letras.getStyle()==0 || letras.getStyle()==1 || letras.getStyle()==2 || letras.getStyle()==3 ){
-                    // TODO: Checar si se conserva las negritas y cursivas
+                    /* TODO: NO se conservan las negritas y cursivas juntas al cambiar de fuente de letra, tampoco funciona plain
+                        Aunque segun se cambien los tipos de fuentes parece mostrar comportamiento diferente, tal vez por las propiedades de la fuente */
                 }
-                tipoLetra = letras.getFontName();
-                size = letras.getSize();
+                fontName = letras.getFontName();
+                fontSize = letras.getSize();
             }else
             if (itemSubmenuSelected =="12" || itemSubmenuSelected =="16" || itemSubmenuSelected =="20" || itemSubmenuSelected =="24"){  /* Size */
-                style = letras.getStyle();
-                tipoLetra = letras.getFontName();
+                fontStyle = letras.getStyle();
+                fontName = letras.getFontName();
             }
 
-            areaEscritura.setFont(new Font(tipoLetra, style, size));
-            System.out.println("Nombre: " + tipoLetra +" Estilo: " + style +" Tamaño: " + size);  // TODO: Agregar a la areaInfo
+            areaEscrituraPanel.setFont(new Font(fontName, fontStyle, fontSize));
+            System.out.println("Nombre: " + fontName +"\t\t Estilo: " + fontStyle +"\t\t Tamaño: " + fontSize);  // TODO: Agregar a la areaInfo
 
         }   // END actionPerformed()
 
