@@ -48,62 +48,65 @@ public class MenuPanel extends JPanel {
     }
 
     /** Un metodo que ponga los elementos a la escucha y que tambien los construya */
-    public void configurarMenu(String rotuloMenuSuperior, String jbotonMenuSup, String tipoLetra, int estiloLetra, int sizeLetra){
+    public void configurarMenu(String itemMenuSuperior, String jMenuRotuloSup, String tipoLetra, int estiloLetra, int sizeLetra){
         // Construye los items para cada submenu
-        JMenuItem menuElement = new JMenuItem(rotuloMenuSuperior);
-        if (jbotonMenuSup=="Fuente"){
+        JMenuItem menuElement = new JMenuItem(itemMenuSuperior);
+        if (jMenuRotuloSup=="Fuente"){
             fontType.add(menuElement);
-        }else if(jbotonMenuSup=="Estilo"){
+        }else if(jMenuRotuloSup=="Estilo"){
             fontStyle.add(menuElement);
-        }else if(jbotonMenuSup=="Tamaño"){
+        }else if(jMenuRotuloSup=="Tamaño"){
             fontSize.add(menuElement);
         }
-        // Ponemos a la escucha al menu desplegable
-        menuElement.addActionListener(new GestionaEventos(rotuloMenuSuperior, jbotonMenuSup, estiloLetra, sizeLetra));
+        // Ponemos a la escucha al elemento item del menu desplegable
+        menuElement.addActionListener(new GestionaEventos(itemMenuSuperior, jMenuRotuloSup, tipoLetra, estiloLetra, sizeLetra));
 
-    }
+    }   // END configurarMenu()
+
 
     // Clase interna
     private class GestionaEventos implements ActionListener{
 
-        private String tipoLetra, menuSelecionado;
+        private String itemSubmenuSelected, menuSelecionado, tipoLetra;
         private int style, size;
 
         // Constructor que detectara que item del menu se selecciono
-        GestionaEventos(String elementoSeleccionado, String botonFuente, int estiloLetra, int tamLetra) {
-            tipoLetra = elementoSeleccionado;
-            menuSelecionado = botonFuente;
+        GestionaEventos(String itemSelected, String menuFuente, String tipoLetra, int estiloLetra, int tamLetra) {
+            itemSubmenuSelected = itemSelected;
+            menuSelecionado = menuFuente;
+            this.tipoLetra = tipoLetra;
             style = estiloLetra;
             size = tamLetra;
 
-        }
+        }   // END constructor
 
         /** Cambia el tipo de letra, estilo y tamaño */
         @Override
         public void actionPerformed(ActionEvent e) {
 
-            letras = areaEscritura.getFont();       // Captura el tipo de letra del area de texto
+            letras = areaEscritura.getFont();       // Captura el tipo de letra del area de texto, variable global de la clase externa
 
-            if (menuSelecionado =="Arial" || menuSelecionado =="Consolas" || menuSelecionado =="Verdana"){
+            if (itemSubmenuSelected =="Arial" || itemSubmenuSelected =="Consolas" || itemSubmenuSelected =="Verdana"){  /* FontName */
                 style = letras.getStyle();
                 size = letras.getSize();
             } else
-            if (menuSelecionado =="Negrita" || menuSelecionado =="Cursiva" || menuSelecionado =="Normal"){
+            if (itemSubmenuSelected =="Negrita" || itemSubmenuSelected =="Cursiva" || itemSubmenuSelected =="Normal"){  /* Style: plain, bold, italic, bold+italic */
                 if (letras.getStyle()==0 || letras.getStyle()==1 || letras.getStyle()==2 || letras.getStyle()==3 ){
                     // TODO: Checar si se conserva las negritas y cursivas
                 }
                 tipoLetra = letras.getFontName();
                 size = letras.getSize();
             }else
-            if (menuSelecionado =="12" || menuSelecionado =="16" || menuSelecionado =="20" || menuSelecionado =="24"){
+            if (itemSubmenuSelected =="12" || itemSubmenuSelected =="16" || itemSubmenuSelected =="20" || itemSubmenuSelected =="24"){  /* Size */
                 style = letras.getStyle();
                 tipoLetra = letras.getFontName();
             }
 
             areaEscritura.setFont(new Font(tipoLetra, style, size));
-            System.out.println("Tipo: " + tipoLetra +" Estilo: " + style +" Tamaño: " + size);  // TODO: Agregar a la areaInfo
-        }
+            System.out.println("Nombre: " + tipoLetra +" Estilo: " + style +" Tamaño: " + size);  // TODO: Agregar a la areaInfo
 
-    }
+        }   // END actionPerformed()
+
+    }   // END inner class that implements ActionListener
 
 }
