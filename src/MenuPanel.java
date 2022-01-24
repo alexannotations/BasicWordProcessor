@@ -36,13 +36,30 @@ public class MenuPanel extends JPanel {
         configurarMenu("Consolas","Fuente","Consolas",9,11,"");
         configurarMenu("Verdana","Fuente","Verdana",9,11,"");
 
-        configurarMenu("Negrita","Estilo","",Font.BOLD,1,"archive/cursiva-16.png");
-        configurarMenu("Cursiva","Estilo","",Font.ITALIC,1,"archive/negrita-16.png");
+        JCheckBoxMenuItem negritaElementCheckBox = new JCheckBoxMenuItem("Negrita", new ImageIcon("archive/negrita-16.png"));
+        JCheckBoxMenuItem cursivaElementCheckBox = new JCheckBoxMenuItem("Cursiva", new ImageIcon("archive/cursiva-16.png"));
+        negritaElementCheckBox.addActionListener(new StyledEditorKit.BoldAction());
+        cursivaElementCheckBox.addActionListener(new StyledEditorKit.ItalicAction());
+        fontStyleMenu.add(negritaElementCheckBox);
+        fontStyleMenu.add(cursivaElementCheckBox);
 
-        configurarMenu("12","Tamaño","",9,12,"");
-        configurarMenu("16","Tamaño","",9,16,"");
-        configurarMenu("20","Tamaño","",9,20,"");
-        configurarMenu("24","Tamaño","",9,24,"");
+        ButtonGroup grupoSizeFonts = new ButtonGroup();
+        JRadioButtonMenuItem  doceRadioButton = new JRadioButtonMenuItem("12");
+        JRadioButtonMenuItem  dieciseisRadioButton = new JRadioButtonMenuItem("16");
+        JRadioButtonMenuItem  veinteRadioButton = new JRadioButtonMenuItem("20");
+        JRadioButtonMenuItem  veinticuatroRadioButton = new JRadioButtonMenuItem("24");
+        grupoSizeFonts.add(doceRadioButton);
+        grupoSizeFonts.add(dieciseisRadioButton);
+        grupoSizeFonts.add(veinteRadioButton);
+        grupoSizeFonts.add(veinticuatroRadioButton);
+        doceRadioButton.addActionListener(new StyledEditorKit.FontSizeAction("cambia tamaño",12));
+        dieciseisRadioButton.addActionListener(new StyledEditorKit.FontSizeAction("cambia tamaño",16));
+        veinteRadioButton.addActionListener(new StyledEditorKit.FontSizeAction("cambia tamaño",20));
+        veinticuatroRadioButton.addActionListener(new StyledEditorKit.FontSizeAction("cambia tamaño",24));
+        fontSizeMenu.add(doceRadioButton);
+        fontSizeMenu.add(dieciseisRadioButton);
+        fontSizeMenu.add(veinteRadioButton);
+        fontSizeMenu.add(veinticuatroRadioButton);
 
     }   // END MenuPanel
 
@@ -58,14 +75,6 @@ public class MenuPanel extends JPanel {
                 menuElement.addActionListener(new StyledEditorKit.FontFamilyAction("Cambia letra", "Consolas"));
             }else if(tipoLetra=="Verdana"){
                 menuElement.addActionListener(new StyledEditorKit.FontFamilyAction("Cambia letra", "Verdana"));
-            }
-
-        }else if(jbotonMenuSup=="Estilo"){
-            fontStyleMenu.add(menuElement);
-            if (estiloLetra==Font.BOLD){
-                menuElement.addActionListener(new StyledEditorKit.BoldAction());
-            } else if (estiloLetra==Font.ITALIC){
-                menuElement.addActionListener(new StyledEditorKit.ItalicAction());
             }
 
         }else if(jbotonMenuSup=="Tamaño"){
