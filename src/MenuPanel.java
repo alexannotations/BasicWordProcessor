@@ -1,4 +1,7 @@
-
+/* *** ** ** ** ** **
+ *
+ * Iconos descargados de: https://iconos8.es/icon/
+ *  */
 import javax.swing.*;
 import javax.swing.text.StyledEditorKit;
 import java.awt.*;
@@ -29,24 +32,24 @@ public class MenuPanel extends JPanel {
         barraMenuSuperior.add(fontStyleMenu);
         barraMenuSuperior.add(fontSizeMenu);
         /* -- -- -- -- -- -- -- -- -- -- -- -- TODO refactorizar-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --*/
-        configurarMenu("Arial","Fuente","Arial",9,11);
-        configurarMenu("Consolas","Fuente","Consolas",9,11);
-        configurarMenu("Verdana","Fuente","Verdana",9,11);
+        configurarMenu("Arial","Fuente","Arial",9,11,"");
+        configurarMenu("Consolas","Fuente","Consolas",9,11,"");
+        configurarMenu("Verdana","Fuente","Verdana",9,11,"");
 
-        configurarMenu("Negrita","Estilo","",Font.BOLD,1);
-        configurarMenu("Cursiva","Estilo","",Font.ITALIC,1);
+        configurarMenu("Negrita","Estilo","",Font.BOLD,1,"archive/cursiva-16.png");
+        configurarMenu("Cursiva","Estilo","",Font.ITALIC,1,"archive/negrita-16.png");
 
-        configurarMenu("12","Tamaño","",9,12);
-        configurarMenu("16","Tamaño","",9,16);
-        configurarMenu("20","Tamaño","",9,20);
-        configurarMenu("24","Tamaño","",9,24);
+        configurarMenu("12","Tamaño","",9,12,"");
+        configurarMenu("16","Tamaño","",9,16,"");
+        configurarMenu("20","Tamaño","",9,20,"");
+        configurarMenu("24","Tamaño","",9,24,"");
 
     }   // END MenuPanel
 
     /** Un metodo que ponga los elementos a la escucha y que tambien los construya */
-    public void configurarMenu(String rotuloMenuSuperior, String jbotonMenuSup, String tipoLetra, int estiloLetra, int sizeLetra){
+    public void configurarMenu(String rotuloMenuSuperior, String jbotonMenuSup, String tipoLetra, int estiloLetra, int sizeLetra, String iconPath){
         // Construye los items para cada submenu
-        JMenuItem menuElement = new JMenuItem(rotuloMenuSuperior);
+        JMenuItem menuElement = new JMenuItem(rotuloMenuSuperior, new ImageIcon(iconPath));
         if (jbotonMenuSup=="Fuente"){
             fontTypeMenu.add(menuElement);
             if (tipoLetra=="Arial"){
