@@ -36,6 +36,8 @@ public class MenuPanel extends JPanel {
         configurarMenu("Consolas","Fuente","Consolas",9,11,"");
         configurarMenu("Verdana","Fuente","Verdana",9,11,"");
 
+        // TODO: falta agregar una función que obtenga el estado de negritas y cursivas
+        //  por cada palabra de texto seleccionada
         JCheckBoxMenuItem negritaElementCheckBox = new JCheckBoxMenuItem("Negrita", new ImageIcon("archive/negrita-16.png"));
         JCheckBoxMenuItem cursivaElementCheckBox = new JCheckBoxMenuItem("Cursiva", new ImageIcon("archive/cursiva-16.png"));
         negritaElementCheckBox.addActionListener(new StyledEditorKit.BoldAction());
@@ -61,7 +63,17 @@ public class MenuPanel extends JPanel {
         fontSizeMenu.add(veinteRadioButton);
         fontSizeMenu.add(veinticuatroRadioButton);
 
-    }   // END MenuPanel
+        JPopupMenu menuEmergente =new JPopupMenu();
+        JMenuItem negritaMEmergente=new JMenuItem("Negrita");
+        JMenuItem cursivaMEmergente=new JMenuItem("Cursiva");
+        menuEmergente.add(negritaMEmergente);
+        menuEmergente.add(cursivaMEmergente);
+        areaEscrituraPanel.setComponentPopupMenu(menuEmergente);
+
+        negritaMEmergente.addActionListener(new StyledEditorKit.BoldAction());
+        cursivaMEmergente.addActionListener(new StyledEditorKit.ItalicAction());
+
+    }   // END constructor MenuPanel
 
     /** Un metodo que ponga los elementos a la escucha y que tambien los construya */
     public void configurarMenu(String rotuloMenuSuperior, String jbotonMenuSup, String tipoLetra, int estiloLetra, int sizeLetra, String iconPath){
