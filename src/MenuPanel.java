@@ -5,6 +5,8 @@
 import javax.swing.*;
 import javax.swing.text.StyledEditorKit;
 import java.awt.*;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 
 public class MenuPanel extends JPanel {
 
@@ -40,6 +42,9 @@ public class MenuPanel extends JPanel {
         //  por cada palabra de texto seleccionada
         JCheckBoxMenuItem negritaElementCheckBox = new JCheckBoxMenuItem("Negrita", new ImageIcon("archive/negrita-16.png"));
         JCheckBoxMenuItem cursivaElementCheckBox = new JCheckBoxMenuItem("Cursiva", new ImageIcon("archive/cursiva-16.png"));
+        // Atajo de teclado con el metodo setAccelerator(KeyStroke obj) de la clase JMenuItem
+        negritaElementCheckBox.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK));
+        cursivaElementCheckBox.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_K, InputEvent.CTRL_DOWN_MASK));
         negritaElementCheckBox.addActionListener(new StyledEditorKit.BoldAction());
         cursivaElementCheckBox.addActionListener(new StyledEditorKit.ItalicAction());
         fontStyleMenu.add(negritaElementCheckBox);
@@ -50,6 +55,8 @@ public class MenuPanel extends JPanel {
         JRadioButtonMenuItem  dieciseisRadioButton = new JRadioButtonMenuItem("16");
         JRadioButtonMenuItem  veinteRadioButton = new JRadioButtonMenuItem("20");
         JRadioButtonMenuItem  veinticuatroRadioButton = new JRadioButtonMenuItem("24");
+        // Atajo de teclado CTRL+D
+        veinticuatroRadioButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D, InputEvent.CTRL_DOWN_MASK));
         grupoSizeFonts.add(doceRadioButton);
         grupoSizeFonts.add(dieciseisRadioButton);
         grupoSizeFonts.add(veinteRadioButton);
