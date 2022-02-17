@@ -95,12 +95,24 @@ public class MenuPanel extends JPanel {
         amarillolineButtonBarra.addActionListener(new StyledEditorKit.ForegroundAction("Cambia a amarillo", Color.YELLOW));
         JButton rojoButtonBarra = new JButton(new ImageIcon("archive/red.png"));
         rojoButtonBarra.addActionListener(new StyledEditorKit.ForegroundAction("Cambia a rojo", Color.RED));
+        JButton izquierdaButtonBarra = new JButton(new ImageIcon("archive/alinear-izquierda.png"));
+        izquierdaButtonBarra.addActionListener(new StyledEditorKit.AlignmentAction("Izquierda",0));
+        JButton derechaButtonBarra = new JButton(new ImageIcon("archive/alinear-derecha.png"));
+        derechaButtonBarra.addActionListener(new StyledEditorKit.AlignmentAction("Derecha",2));
+        JButton centrarButtonBarra = new JButton(new ImageIcon("archive/alinear-centro.png"));
+        centrarButtonBarra.addActionListener(new StyledEditorKit.AlignmentAction("Centrar",1));
+        JButton justificarButtonBarra = new JButton(new ImageIcon("archive/alinear-justificar.png"));
+        justificarButtonBarra.addActionListener(new StyledEditorKit.AlignmentAction("Justificar",3));
         barraHerramientas.add(negritaButtonBarra);
         barraHerramientas.add(cursivaButtonBarra);
         barraHerramientas.add(underlineButtonBarra);
         barraHerramientas.add(azulButtonBarra);
         barraHerramientas.add(amarillolineButtonBarra);
         barraHerramientas.add(rojoButtonBarra);
+        barraHerramientas.add(izquierdaButtonBarra);
+        barraHerramientas.add(centrarButtonBarra);
+        barraHerramientas.add(derechaButtonBarra);
+        barraHerramientas.add(justificarButtonBarra);
         // Al ser Border layout se puede arrastrar, por default los posiciona en forma horizontal
         barraHerramientas.setOrientation(SwingConstants.VERTICAL);    // 0 horizontal - 1 vertical
         add(barraHerramientas, BorderLayout.WEST);

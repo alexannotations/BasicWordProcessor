@@ -5,7 +5,7 @@ import java.awt.*;
 public class MenuFrame extends JFrame {
 
     public MenuFrame() throws HeadlessException {
-        setBounds(550,300,850,350);
+        setBounds(550,300,850,450);
         setTitle("Procesador de texto basico");
         add(new MenuPanel());
         setVisible(true);
