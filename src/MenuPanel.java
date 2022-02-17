@@ -80,6 +80,32 @@ public class MenuPanel extends JPanel {
         negritaMEmergente.addActionListener(new StyledEditorKit.BoldAction());
         cursivaMEmergente.addActionListener(new StyledEditorKit.ItalicAction());
 
+        // -------------------------------------------------------------------------------------------------------------
+        // Creamos una barra de herramientas y sus botones en la columna izquierda
+        JToolBar barraHerramientas =new JToolBar();
+        JButton negritaButtonBarra = new JButton(new ImageIcon("archive/negrita-16.png"));
+        negritaButtonBarra.addActionListener(new StyledEditorKit.BoldAction());
+        JButton cursivaButtonBarra = new JButton(new ImageIcon("archive/cursiva-16.png"));
+        cursivaButtonBarra.addActionListener(new StyledEditorKit.ItalicAction());
+        JButton underlineButtonBarra = new JButton(new ImageIcon("archive/subrayar-16.png"));
+        underlineButtonBarra.addActionListener(new StyledEditorKit.UnderlineAction());
+        JButton azulButtonBarra = new JButton(new ImageIcon("archive/blue.png"));
+        azulButtonBarra.addActionListener(new StyledEditorKit.ForegroundAction("Cambia a azul", Color.BLUE));
+        JButton amarillolineButtonBarra = new JButton(new ImageIcon("archive/yellow.png"));
+        amarillolineButtonBarra.addActionListener(new StyledEditorKit.ForegroundAction("Cambia a amarillo", Color.YELLOW));
+        JButton rojoButtonBarra = new JButton(new ImageIcon("archive/red.png"));
+        rojoButtonBarra.addActionListener(new StyledEditorKit.ForegroundAction("Cambia a rojo", Color.RED));
+        barraHerramientas.add(negritaButtonBarra);
+        barraHerramientas.add(cursivaButtonBarra);
+        barraHerramientas.add(underlineButtonBarra);
+        barraHerramientas.add(azulButtonBarra);
+        barraHerramientas.add(amarillolineButtonBarra);
+        barraHerramientas.add(rojoButtonBarra);
+        // Al ser Border layout se puede arrastrar, por default los posiciona en forma horizontal
+        barraHerramientas.setOrientation(SwingConstants.VERTICAL);    // 0 horizontal - 1 vertical
+        add(barraHerramientas, BorderLayout.WEST);
+
+
     }   // END constructor MenuPanel
 
     /** Un metodo que ponga los elementos a la escucha y que tambien los construya */
@@ -98,7 +124,7 @@ public class MenuPanel extends JPanel {
 
         }else if(jbotonMenuSup=="Tamaño"){
             fontSizeMenu.add(menuElement);
-            menuElement.addActionListener(new StyledEditorKit.FontSizeAction("Cambia tamañ",sizeLetra));
+            menuElement.addActionListener(new StyledEditorKit.FontSizeAction("Cambia tamaño",sizeLetra));
         }
 
     }   // END configurarMenu
