@@ -12,6 +12,11 @@ public class MenuPanel extends JPanel {
 
     JTextPane areaEscrituraPanel;
     JMenu fontTypeMenu, fontStyleMenu, fontSizeMenu;
+    Font letras;
+    JButton negritaButtonBarra, cursivaButtonBarra, underlineButtonBarra,
+            azulButtonBarra, rojoButtonBarra, amarillolineButtonBarra,
+            izquierdaButtonBarra, derechaButtonBarra, centrarButtonBarra, justificarButtonBarra;
+    JToolBar barraHerramientas;
 
     public MenuPanel() {
         JPanel panelMenuSuperior = new JPanel();
@@ -81,44 +86,36 @@ public class MenuPanel extends JPanel {
         cursivaMEmergente.addActionListener(new StyledEditorKit.ItalicAction());
 
         // -------------------------------------------------------------------------------------------------------------
-        // Creamos una barra de herramientas y sus botones en la columna izquierda
-        JToolBar barraHerramientas =new JToolBar();
-        JButton negritaButtonBarra = new JButton(new ImageIcon("archive/negrita-16.png"));
-        negritaButtonBarra.addActionListener(new StyledEditorKit.BoldAction());
-        JButton cursivaButtonBarra = new JButton(new ImageIcon("archive/cursiva-16.png"));
-        cursivaButtonBarra.addActionListener(new StyledEditorKit.ItalicAction());
-        JButton underlineButtonBarra = new JButton(new ImageIcon("archive/subrayar-16.png"));
-        underlineButtonBarra.addActionListener(new StyledEditorKit.UnderlineAction());
-        JButton azulButtonBarra = new JButton(new ImageIcon("archive/blue.png"));
-        azulButtonBarra.addActionListener(new StyledEditorKit.ForegroundAction("Cambia a azul", Color.BLUE));
-        JButton amarillolineButtonBarra = new JButton(new ImageIcon("archive/yellow.png"));
-        amarillolineButtonBarra.addActionListener(new StyledEditorKit.ForegroundAction("Cambia a amarillo", Color.YELLOW));
-        JButton rojoButtonBarra = new JButton(new ImageIcon("archive/red.png"));
-        rojoButtonBarra.addActionListener(new StyledEditorKit.ForegroundAction("Cambia a rojo", Color.RED));
-        JButton izquierdaButtonBarra = new JButton(new ImageIcon("archive/alinear-izquierda.png"));
-        izquierdaButtonBarra.addActionListener(new StyledEditorKit.AlignmentAction("Izquierda",0));
-        JButton derechaButtonBarra = new JButton(new ImageIcon("archive/alinear-derecha.png"));
-        derechaButtonBarra.addActionListener(new StyledEditorKit.AlignmentAction("Derecha",2));
-        JButton centrarButtonBarra = new JButton(new ImageIcon("archive/alinear-centro.png"));
-        centrarButtonBarra.addActionListener(new StyledEditorKit.AlignmentAction("Centrar",1));
-        JButton justificarButtonBarra = new JButton(new ImageIcon("archive/alinear-justificar.png"));
-        justificarButtonBarra.addActionListener(new StyledEditorKit.AlignmentAction("Justificar",3));
-        barraHerramientas.add(negritaButtonBarra);
-        barraHerramientas.add(cursivaButtonBarra);
-        barraHerramientas.add(underlineButtonBarra);
-        barraHerramientas.add(azulButtonBarra);
-        barraHerramientas.add(amarillolineButtonBarra);
-        barraHerramientas.add(rojoButtonBarra);
-        barraHerramientas.add(izquierdaButtonBarra);
-        barraHerramientas.add(centrarButtonBarra);
-        barraHerramientas.add(derechaButtonBarra);
-        barraHerramientas.add(justificarButtonBarra);
+        // Creamos una barra de herramientas y sus botones en la columna izquierda para estilo, color y alineación
+        barraHerramientas = new JToolBar();
+        configurarBarra("archive/negrita-16.png").addActionListener(new StyledEditorKit.BoldAction());
+        configurarBarra("archive/cursiva-16.png").addActionListener(new StyledEditorKit.ItalicAction());
+        configurarBarra("archive/subrayar-16.png").addActionListener(new StyledEditorKit.UnderlineAction());
+        barraHerramientas.addSeparator();
+        configurarBarra("archive/blue.png").addActionListener(new StyledEditorKit.ForegroundAction("Cambia a azul", Color.BLUE));
+        configurarBarra("archive/yellow.png").addActionListener(new StyledEditorKit.ForegroundAction("Cambia a amarillo", Color.YELLOW));
+        configurarBarra("archive/red.png").addActionListener(new StyledEditorKit.ForegroundAction("Cambia a rojo", Color.RED));
+        barraHerramientas.addSeparator();
+        configurarBarra("archive/alinear-izquierda.png").addActionListener(new StyledEditorKit.AlignmentAction("Izquierda",0));
+        configurarBarra("archive/alinear-derecha.png").addActionListener(new StyledEditorKit.AlignmentAction("Derecha",2));
+        configurarBarra("archive/alinear-centro.png").addActionListener(new StyledEditorKit.AlignmentAction("Centrar",1));
+        configurarBarra("archive/alinear-justificar.png").addActionListener(new StyledEditorKit.AlignmentAction("Justificar",3));
+
+
         // Al ser Border layout se puede arrastrar, por default los posiciona en forma horizontal
         barraHerramientas.setOrientation(SwingConstants.VERTICAL);    // 0 horizontal - 1 vertical
         add(barraHerramientas, BorderLayout.WEST);
 
 
     }   // END constructor MenuPanel
+
+    // Genera el boton y lo agrega a la barra de herramientas con el icono recibido,
+    // el listener se aplica despues de retornar el objeto
+    public JButton configurarBarra(String ruta){
+        JButton boton = new JButton(new ImageIcon(ruta));
+        barraHerramientas.add(boton);
+        return boton;
+    }
 
     /** Un metodo que ponga los elementos a la escucha y que tambien los construya */
     public void configurarMenu(String rotuloMenuSuperior, String jbotonMenuSup, String tipoLetra, int estiloLetra, int sizeLetra, String iconPath){
